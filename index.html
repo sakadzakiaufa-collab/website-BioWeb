@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BIOWEB — Studio Pembuat Website Berbasis Sosial Media & Android</title>
+  <meta name="description" content="Ubah akun Instagram & TikTok menjadi katalog website komersial instan langsung dari smartphone Android Anda tanpa coding." />
+  <meta property="og:title" content="BIOWEB — Website Komersial Instan dari Sosial Media" />
+  <meta property="og:description" content="Susun katalog produk dan sistem order WhatsApp dalam 60 detik dari smartphone Anda." />
+  <meta property="og:type" content="website" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Instrument Serif"', 'serif'],
+            sans: ['"Space Grotesk"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            paper: '#F4F1EA',
+            paperDark: '#E9E4D8',
+            ink: '#141514',
+            vermilion: '#E04F33',
+            forest: '#1B3B2B',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #F4F1EA;
+      color: #141514;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .hairline { border-color: #141514; }
+    .hairline-muted { border-color: rgba(20, 21, 20, 0.18); }
+    .shadow-hard { box-shadow: 5px 5px 0px #141514; }
+    .shadow-hard-sm { box-shadow: 3px 3px 0px #141514; }
+    .btn-tactile {
+      transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.16s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.16s ease;
+    }
+    .btn-tactile:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0px #141514;
+    }
+    .btn-tactile:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0px #141514;
+    }
+    /* Hide scrollbar for preview */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-vermilion selection:text-paper">
+
+  <!-- TOP EDITORIAL NAVIGATION -->
+  <header class="sticky top-0 z-40 bg-paper/95 backdrop-blur-sm border-b hairline">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="#" class="flex items-center gap-2.5 group">
+          <span class="w-8 h-8 bg-ink text-paper font-mono text-xs font-semibold flex items-center justify-center">BW</span>
+          <span class="font-bold tracking-tight text-lg uppercase">BioWeb<span class="text-vermilion">.</span></span>
+        </a>
+        <span class="hidden lg:inline-block font-mono text-[11px] uppercase tracking-widest text-ink/60 border-l hairline-muted pl-4">
+          Mobile Social-to-Web Engine v2.5
+        </span>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold uppercase tracking-wider">
+        <a href="#arsitektur" class="hover:text-vermilion transition-colors">01. Cara Kerja</a>
+        <a href="#studio" class="hover:text-vermilion transition-colors">02. Live Studio</a>
+        <a href="#paket" class="hover:text-vermilion transition-colors">03. Biaya</a>
+        <a href="#faq" class="hover:text-vermilion transition-colors">04. FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button onclick="orderPackage('setup')" class="hidden sm:inline-flex items-center gap-1.5 font-mono text-xs border hairline px-3 py-2 bg-paperDark hover:bg-ink hover:text-paper transition-colors">
+          <span>💬 Tanya Admin</span>
+        </button>
+        <a href="#studio" class="btn-tactile bg-vermilion text-paper border hairline text-xs font-bold uppercase tracking-wider px-4 py-2.5">
+          Buka Web Studio
+        </a>
+        <!-- Mobile Menu Toggle Button -->
+        <button onclick="toggleMobileNav()" class="md:hidden p-2 border hairline bg-paper">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobileMenu" class="hidden md:hidden border-b hairline bg-paperDark px-4 py-3 space-y-2 font-mono text-xs font-bold">
+      <a href="#arsitektur" onclick="toggleMobileNav()" class="block py-1 hover:text-vermilion">01. ALUR KERJA</a>
+      <a href="#studio" onclick="toggleMobileNav()" class="block py-1 hover:text-vermilion">02. LIVE BUILDER STUDIO</a>
+      <a href="#paket" onclick="toggleMobileNav()" class="block py-1 hover:text-vermilion">03. SKEMA BIAYA & PAKET</a>
+      <a href="#faq" onclick="toggleMobileNav()" class="block py-1 hover:text-vermilion">04. TANYA JAWAB (FAQ)</a>
+      <button onclick="orderPackage('setup')" class="w-full text-left py-2 border-t hairline-muted text-vermilion">
+        💬 KONSULTASI ADMIN WHATSAPP →
+      </button>
+    </div>
+  </header>
+
+  <!-- ASYMMETRIC EDITORIAL HERO -->
+  <section class="border-b hairline">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12">
+      
+      <!-- Left Column: Main Typography -->
+      <div class="lg:col-span-8 px-4 sm:px-8 py-12 sm:py-20 lg:border-r hairline flex flex-col justify-between">
+        <div>
+          <div class="inline-flex items-center gap-2 border hairline bg-paperDark px-3 py-1 mb-6">
+            <span class="w-2 h-2 rounded-full bg-vermilion"></span>
+            <span class="font-mono text-[11px] uppercase tracking-wider font-medium">Direkayasa Khusus Pengguna Android & Kreator</span>
+          </div>
+
+          <h1 class="font-serif text-5xl sm:text-7xl lg:text-[5.25rem] leading-[0.95] tracking-[-0.02em] text-ink max-w-3xl">
+            Ubah akun sosial media menjadi <span class="italic text-vermilion">website komersial</span> langsung dari genggaman.
+          </h1>
+
+          <p class="mt-6 text-base sm:text-lg text-ink/80 max-w-2xl leading-[1.65]">
+            Tidak perlu laptop, menyewa agensi mahal, atau menulis kode. Unggah katalog foto dan profil brand Anda—mesin BioWeb otomatis menyusun toko online dengan sistem pemesanan langsung ke WhatsApp.
+          </p>
+        </div>
+
+        <div class="mt-10 pt-8 border-t hairline-muted flex flex-wrap items-center gap-4">
+          <a href="#studio" class="btn-tactile bg-ink text-paper border hairline px-6 py-3.5 text-xs font-bold uppercase tracking-wider">
+            Coba Studio Interaktif ↓
+          </a>
+          <button onclick="openFullPreview()" class="btn-tactile bg-paper text-ink border hairline px-6 py-3.5 text-xs font-bold uppercase tracking-wider">
+            Lihat Contoh Website Jadi ↗
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Column: Editorial Metrics & Spec Sheet -->
+      <div class="lg:col-span-4 bg-paperDark/60 flex flex-col justify-between">
+        <div class="p-6 sm:p-8 border-b hairline-muted">
+          <p class="font-mono text-[11px] uppercase tracking-widest text-ink/60 mb-2">PERBANDINGAN WAKTU RILIS</p>
+          <div class="flex items-baseline gap-3">
+            <span class="font-serif text-6xl text-ink">60<span class="text-2xl font-sans font-bold">dtk</span></span>
+            <span class="font-mono text-xs text-vermilion line-through">vs 14 hari agensi</span>
+          </div>
+          <p class="text-xs text-ink/75 mt-2 leading-relaxed">
+            Sinkronisasi foto produk, handle sosmed, dan deskripsi katalog langsung dari layar smartphone Android.
+          </p>
+        </div>
+
+        <div class="p-6 sm:p-8 border-b hairline-muted">
+          <p class="font-mono text-[11px] uppercase tracking-widest text-ink/60 mb-3">FITUR UTAMA 2026</p>
+          <ul class="space-y-2.5 text-xs font-medium">
+            <li class="flex items-center justify-between border-b hairline-muted pb-2">
+              <span>Galeri Foto & Avatar Toko</span>
+              <span class="font-mono text-forest font-semibold">VISUAL HD</span>
+            </li>
+            <li class="flex items-center justify-between border-b hairline-muted pb-2">
+              <span>Direct WhatsApp Checkout</span>
+              <span class="font-mono text-forest font-semibold">OTOMATIS</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Penyimpanan Draf di Browser</span>
+              <span class="font-mono text-forest font-semibold">AUTO-SAVE</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="p-6 sm:p-8 bg-forest text-paper">
+          <p class="font-mono text-[10px] uppercase tracking-widest text-paper/70">STUDI KASUS PENGGUNA</p>
+          <p class="font-serif italic text-2xl mt-1 leading-snug">
+            “Orderan naik 3x lipat setelah link bio IG diganti jadi katalog foto rapi tanpa buka laptop.”
+          </p>
+          <p class="font-mono text-[11px] text-paper/80 mt-3">— Studio Keramik TanahLiat, Bandung</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 01: NUMBERED EDITORIAL PROCESS -->
+  <section id="arsitektur" class="border-b hairline bg-paper">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 py-14">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-widest text-vermilion font-semibold">01 / ALUR PRODUKSI</span>
+          <h2 class="font-serif text-4xl sm:text-5xl mt-1">Tiga tahap dari profil sosial ke domain aktif.</h2>
+        </div>
+        <p class="text-xs sm:text-sm text-ink/70 max-w-md">
+          Dirancang dengan antarmuka sentuh yang presisi agar pelaku UMKM dan kreator konten bisa mengelola etalase digital di sela aktivitas.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 border hairline">
+        <div class="p-6 sm:p-8 border-b md:border-b-0 md:border-r hairline">
+          <span class="font-mono text-xs font-bold px-2 py-1 bg-ink text-paper">TAHAP 01</span>
+          <h3 class="font-bold text-xl mt-5">Tarik Identitas Sosial</h3>
+          <p class="text-sm text-ink/75 mt-2.5 leading-relaxed">
+            Masukkan foto profil dan akun Instagram atau TikTok. Sistem memetakan tautan kanal sosial media Anda ke dalam struktur halaman yang bisa langsung diklik.
+          </p>
+        </div>
+        <div class="p-6 sm:p-8 border-b md:border-b-0 md:border-r hairline">
+          <span class="font-mono text-xs font-bold px-2 py-1 bg-ink text-paper">TAHAP 02</span>
+          <h3 class="font-bold text-xl mt-5">Unggah Foto & Harga Produk</h3>
+          <p class="text-sm text-ink/75 mt-2.5 leading-relaxed">
+            Pilih arah gaya visual website, masukkan foto produk dari galeri HP atau tautan web, dan tetapkan harga jualan Anda.
+          </p>
+        </div>
+        <div class="p-6 sm:p-8">
+          <span class="font-mono text-xs font-bold px-2 py-1 bg-vermilion text-paper">TAHAP 03</span>
+          <h3 class="font-bold text-xl mt-5">Terbitkan & Terima Order</h3>
+          <p class="text-sm text-ink/75 mt-2.5 leading-relaxed">
+            Dapatkan alamat website untuk diletakkan di bio sosmed. Setiap pembeli menekan tombol beli, pesanan langsung masuk ke WhatsApp Anda dengan rincian nama item.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 02: INTERACTIVE LIVE WEB STUDIO -->
+  <section id="studio" class="border-b hairline bg-paperDark/40 py-14">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8">
+      
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-4">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-widest text-vermilion font-semibold">02 / INTERACTIVE WORKSPACE</span>
+          <h2 class="font-serif text-4xl sm:text-5xl mt-1">BioWeb Live Builder Studio</h2>
+        </div>
+
+        <!-- Preset Switcher -->
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-mono text-[11px] uppercase text-ink/60 mr-1">Contoh Niche:</span>
+          <button onclick="loadPreset('roastery')" class="btn-tactile bg-paper border hairline px-3 py-1.5 text-xs font-semibold">
+            ☕ Roastery
+          </button>
+          <button onclick="loadPreset('creator')" class="btn-tactile bg-paper border hairline px-3 py-1.5 text-xs font-semibold">
+            📸 Kreator
+          </button>
+          <button onclick="loadPreset('apparel')" class="btn-tactile bg-paper border hairline px-3 py-1.5 text-xs font-semibold">
+            👕 Apparel
+          </button>
+          <button onclick="resetToDefaultDraft()" class="font-mono text-xs text-ink/60 hover:text-vermilion underline px-2 py-1">
+            ↺ Reset
+          </button>
+        </div>
+      </div>
+
+      <!-- Studio Grid: Left Controls (7 cols) | Right Live Device Preview (5 cols) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- LEFT PANEL: PROFESSIONAL EDITOR -->
+        <div class="lg:col-span-7 bg-paper border hairline shadow-hard">
+          
+          <!-- Editor Sub-Header -->
+          <div class="border-b hairline px-5 py-3.5 bg-paperDark flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 bg-vermilion border hairline"></span>
+              <span class="font-mono text-xs font-bold uppercase tracking-wider">Konfigurasi Konten & Visual</span>
+            </div>
+            <span id="saveIndicator" class="font-mono text-[11px] text-forest font-semibold">● Draf Tersimpan di Browser</span>
+          </div>
+
+          <div class="p-5 sm:p-7 space-y-6">
+            
+            <!-- Step A: Pilih Template Visual -->
+            <div>
+              <label class="block font-mono text-xs font-bold uppercase tracking-wider mb-2.5">
+                A. Pilih Arah Desain Website
+              </label>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <button type="button" onclick="setTemplate('editorial')" id="tpl-editorial"
+                  class="text-left p-3.5 border hairline bg-ink text-paper transition-all">
+                  <div class="flex items-center justify-between font-mono text-[10px] opacity-75">
+                    <span>STYLE 01</span>
+                    <span>AKTIF</span>
+                  </div>
+                  <p class="font-bold text-sm mt-1">Editorial Paper</p>
+                  <p class="text-[11px] opacity-80 mt-0.5">Kertas hangat & tipografi serif</p>
+                </button>
+
+                <button type="button" onclick="setTemplate('forest')" id="tpl-forest"
+                  class="text-left p-3.5 border hairline bg-paper text-ink hover:bg-paperDark transition-all">
+                  <div class="flex items-center justify-between font-mono text-[10px] opacity-60">
+                    <span>STYLE 02</span>
+                    <span>PILIH</span>
+                  </div>
+                  <p class="font-bold text-sm mt-1">Botanical Forest</p>
+                  <p class="text-[11px] opacity-75 mt-0.5">Hijau gelap elegan & aksen emas</p>
+                </button>
+
+                <button type="button" onclick="setTemplate('swiss')" id="tpl-swiss"
+                  class="text-left p-3.5 border hairline bg-paper text-ink hover:bg-paperDark transition-all">
+                  <div class="flex items-center justify-between font-mono text-[10px] opacity-60">
+                    <span>STYLE 03</span>
+                    <span>PILIH</span>
+                  </div>
+                  <p class="font-bold text-sm mt-1">Swiss Grid</p>
+                  <p class="text-[11px] opacity-75 mt-0.5">Kontras tajam & garis presisi</p>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step B: Profil & Integrasi Sosial Media -->
+            <div class="pt-5 border-t hairline-muted space-y-4">
+              <label class="block font-mono text-xs font-bold uppercase tracking-wider">
+                B. Profil Brand, Logo, & Sosial Media
+              </label>
+
+              <!-- Logo & Avatar Input -->
+              <div class="flex items-center gap-4 p-3 border hairline bg-paperDark/50">
+                <img id="avatarPreviewImg" src="https://images.unsplash.com/photo-1509785307050-d4066910ec1e?w=150&auto=format&fit=crop&q=80"
+                  alt="Logo Brand" class="w-14 h-14 rounded-full object-cover border-2 hairline bg-paper shrink-0 shadow-sm" />
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold">Foto Profil / Logo Brand</span>
+                    <label class="font-mono text-[11px] text-vermilion hover:underline cursor-pointer">
+                      <span>📁 Pilih dari File HP</span>
+                      <input type="file" accept="image/*" class="hidden" onchange="handleAvatarUpload(event)">
+                    </label>
+                  </div>
+                  <input id="inAvatar" type="text" 
+                    value="https://images.unsplash.com/photo-1509785307050-d4066910ec1e?w=150&auto=format&fit=crop&q=80" 
+                    oninput="syncStudio()" placeholder="Atau tempel URL gambar logo/avatar di sini"
+                    class="w-full bg-paper border hairline px-2.5 py-1.5 text-xs font-mono focus:outline-none focus:bg-white" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold mb-1">Nama Brand / Usaha</label>
+                  <input id="inBrand" type="text" value="Kala Senja Roastery" oninput="syncStudio()"
+                    class="w-full bg-paper border hairline px-3.5 py-2.5 text-sm font-medium focus:outline-none focus:bg-white" />
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold mb-1">Tagline / Kategori</label>
+                  <input id="inTagline" type="text" value="Specialty Coffee & Manual Brew — Jakarta" oninput="syncStudio()"
+                    class="w-full bg-paper border hairline px-3.5 py-2.5 text-sm font-medium focus:outline-none focus:bg-white" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label class="block text-xs font-semibold mb-1">Instagram (@...)</label>
+                  <input id="inIg" type="text" value="@kalasenja.roast" oninput="syncStudio()"
+                    class="w-full bg-paper border hairline px-3 py-2 text-xs font-mono focus:outline-none focus:bg-white" />
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold mb-1">TikTok (@...)</label>
+                  <input id="inTt" type="text" value="@kalasenja.id" oninput="syncStudio()"
+                    class="w-full bg-paper border hairline px-3 py-2 text-xs font-mono focus:outline-none focus:bg-white" />
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold mb-1">WhatsApp Jualan (628...)</label>
+                  <input id="inWa" type="text" value="6287788320784" oninput="syncStudio()"
+                    class="w-full bg-paper border hairline px-3 py-2 text-xs font-mono focus:outline-none focus:bg-white" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold mb-1">Deskripsi Profil Singkat</label>
+                <textarea id="inBio" rows="2" oninput="syncStudio()"
+                  class="w-full bg-paper border hairline px-3.5 py-2 text-sm leading-relaxed focus:outline-none focus:bg-white">Biji kopi pilihan sangrai segar setiap pekan. Tersedia kemasan 200gr, drip bag, dan paket langganan kedai. Pemesanan langsung diproses via WhatsApp.</textarea>
+              </div>
+            </div>
+
+            <!-- Step C: Manajemen Katalog Produk / Jasa -->
+            <div class="pt-5 border-t hairline-muted space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <label class="font-mono text-xs font-bold uppercase tracking-wider block">
+                    C. Katalog Produk (Foto, Deskripsi, & Harga)
+                  </label>
+                  <span class="text-[11px] text-ink/70">Foto otomatis tampil di layar ponsel live preview.</span>
+                </div>
+                <button type="button" onclick="addProduct()"
+                  class="bg-ink text-paper font-mono text-[11px] font-semibold px-3 py-1.5 hover:bg-vermilion transition-colors">
+                  + Tambah Item
+                </button>
+              </div>
+
+              <div id="productEditorContainer" class="space-y-3"></div>
+            </div>
+
+            <!-- Action Footer -->
+            <div class="pt-5 border-t hairline flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="font-mono text-xs">
+                <span class="text-ink/60">Simulasi Alamat:</span>
+                <span id="editorUrlPreview" class="font-bold underline">bioweb.id/kalasenjaroastery</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="openFullPreview()"
+                  class="btn-tactile bg-paper text-ink border hairline px-4 py-2.5 text-xs font-bold uppercase tracking-wider">
+                  Pratinjau Layar Penuh ↗
+                </button>
+                <button type="button" onclick="publishDraftViaWhatsApp()"
+                  class="btn-tactile bg-vermilion text-paper border hairline px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                  <span>🚀 Terbitkan ke Admin WA</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- RIGHT PANEL: TACTILE MOBILE DEVICE PREVIEW -->
+        <div class="lg:col-span-5 lg:sticky lg:top-24">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-forest animate-pulse"></span>
+              Live Viewport (Android)
+            </span>
+            <button onclick="openFullPreview()" class="font-mono text-[11px] underline hover:text-vermilion">
+              Buka Layar Penuh ↗
+            </button>
+          </div>
+
+          <!-- Realistic Hardware Frame -->
+          <div class="mx-auto max-w-[390px] bg-ink p-3 rounded-[2.5rem] shadow-hard border-2 border-ink">
+            <!-- Top Android Speaker & Camera Bar -->
+            <div class="flex items-center justify-between px-5 pt-1.5 pb-2.5 text-paper/70 font-mono text-[10px]">
+              <span id="phoneClock">10:25</span>
+              <div class="w-16 h-3 bg-black rounded-full border border-white/10 flex items-center justify-center">
+                <div class="w-2.5 h-2.5 rounded-full bg-[#111] border border-white/20"></div>
+              </div>
+              <span>5G • 99%</span>
+            </div>
+
+            <!-- Browser Address Bar inside Android -->
+            <div class="bg-paperDark border-b hairline px-3.5 py-2 rounded-t-2xl flex items-center justify-between">
+              <div class="flex items-center gap-1.5 min-w-0">
+                <span class="w-2 h-2 rounded-full bg-forest shrink-0"></span>
+                <span id="mobileBarUrl" class="font-mono text-[11px] font-semibold text-ink truncate">bioweb.id/kalasenjaroastery</span>
+              </div>
+              <span class="font-mono text-[9px] uppercase px-1.5 py-0.5 border hairline bg-paper shrink-0">SSL 🔒</span>
+            </div>
+
+            <!-- Dynamic Generated Website Canvas -->
+            <div id="liveCanvas" class="bg-paper text-ink rounded-b-2xl overflow-y-auto max-h-[580px] no-scrollbar transition-colors duration-200">
+              <!-- Rendered via JavaScript -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 03: STRUCTURED SPEC TABLE / PRICING -->
+  <section id="paket" class="border-b hairline bg-paper py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-widest text-vermilion font-semibold">03 / SKEMA LAYANAN</span>
+          <h2 class="font-serif text-4xl sm:text-5xl mt-1">Transparan tanpa biaya tersembunyi.</h2>
+        </div>
+        <p class="text-xs sm:text-sm text-ink/70 max-w-md">
+          Pilih sesuai skala usaha Anda. Tanpa potongan komisi penjualan dan siap digunakan 100% dari HP Anda.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 border hairline">
+        <!-- Tier 1 -->
+        <div class="p-6 sm:p-8 border-b md:border-b-0 md:border-r hairline flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between font-mono text-xs">
+              <span class="font-bold">STARTER</span>
+              <span class="px-2 py-0.5 border hairline bg-paperDark">GRATIS</span>
+            </div>
+            <p class="font-serif text-5xl mt-4">Rp 0<span class="font-sans text-xs font-normal text-ink/60"> / selamanya</span></p>
+            <p class="text-xs text-ink/75 mt-3 leading-relaxed">Cocok untuk kreator pemula dan usaha rumahan yang baru memindahkan trafik sosial media ke website.</p>
+            <ul class="mt-6 space-y-2.5 text-xs border-t hairline-muted pt-5">
+              <li>• Subdomain gratis <span class="font-mono">bioweb.id/nama</span></li>
+              <li>• Hingga 6 item katalog dengan foto</li>
+              <li>• Direct order ke WhatsApp Anda</li>
+              <li>• Editor lengkap dari smartphone</li>
+            </ul>
+          </div>
+          <a href="#studio" class="mt-8 block text-center border hairline py-3 text-xs font-bold uppercase tracking-wider hover:bg-paperDark transition-colors">
+            Mulai di Studio Gratis
+          </a>
+        </div>
+
+        <!-- Tier 2 (Highlighted) -->
+        <div class="p-6 sm:p-8 border-b md:border-b-0 md:border-r hairline bg-forest text-paper flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between font-mono text-xs">
+              <span class="font-bold text-vermilion">PRO MERCHANT</span>
+              <span class="px-2 py-0.5 bg-vermilion text-paper">POPULER</span>
+            </div>
+            <p class="font-serif text-5xl mt-4">Rp 39rb<span class="font-sans text-xs font-normal text-paper/70"> / bulan</span></p>
+            <p class="text-xs text-paper/80 mt-3 leading-relaxed">Untuk UMKM aktif dan affiliate creator yang membutuhkan kredibilitas domain mandiri dan katalog tanpa batas.</p>
+            <ul class="mt-6 space-y-2.5 text-xs border-t border-paper/20 pt-5">
+              <li>• Hubungkan Custom Domain (<span class="font-mono">.com / .id / .shop</span>)</li>
+              <li>• Katalog produk foto tanpa batas</li>
+              <li>• Hapus watermark BioWeb di footer</li>
+              <li>• Prioritas server berkecepatan tinggi</li>
+            </ul>
+          </div>
+          <button onclick="orderPackage('pro')" class="btn-tactile mt-8 block w-full text-center bg-vermilion text-paper border border-paper py-3 text-xs font-bold uppercase tracking-wider">
+            Pilih Paket Pro via WA →
+          </button>
+        </div>
+
+        <!-- Tier 3 -->
+        <div class="p-6 sm:p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between font-mono text-xs">
+              <span class="font-bold">DONE-FOR-YOU</span>
+              <span class="px-2 py-0.5 border hairline bg-paperDark">TERIMA BERES</span>
+            </div>
+            <p class="font-serif text-5xl mt-4">Rp 149rb<span class="font-sans text-xs font-normal text-ink/60"> / setup</span></p>
+            <p class="text-xs text-ink/75 mt-3 leading-relaxed">Tim BioWeb yang bantu susun foto, rapikan copywriting produk, dan pasang langsung ke profil sosmed Anda.</p>
+            <ul class="mt-6 space-y-2.5 text-xs border-t hairline-muted pt-5">
+              <li>• Pembuatan website selesai dalam 1x24 jam</li>
+              <li>• Copywriting & penataan foto profesional</li>
+              <li>• Bantuan pasang domain & link di bio IG/TikTok</li>
+              <li>• Bonus gratis 1 bulan Paket Pro</li>
+            </ul>
+          </div>
+          <button onclick="orderPackage('setup')" class="mt-8 block w-full text-center border hairline py-3 text-xs font-bold uppercase tracking-wider hover:bg-paperDark transition-colors">
+            Pesan Jasa Setup via WA →
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 04: EDITORIAL FAQ (ACCORDION) -->
+  <section id="faq" class="border-b hairline bg-paperDark/30 py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <div class="mb-10 text-center">
+        <span class="font-mono text-xs uppercase tracking-widest text-vermilion font-semibold">04 / PERTANYAAN UMUM</span>
+        <h2 class="font-serif text-4xl sm:text-5xl mt-1">Yang sering ditanyakan kreator & UMKM.</h2>
+      </div>
+
+      <div class="border hairline bg-paper divide-y hairline">
+        
+        <!-- FAQ 1 -->
+        <div class="p-5 sm:p-6">
+          <button onclick="toggleFaq(1)" class="w-full flex items-center justify-between text-left font-bold text-base sm:text-lg">
+            <span>Apakah saya harus punya laptop untuk membuat & mengedit website?</span>
+            <span id="faq-icon-1" class="font-mono text-lg font-bold text-vermilion ml-3">+</span>
+          </button>
+          <div id="faq-ans-1" class="hidden mt-3 text-xs sm:text-sm text-ink/75 leading-relaxed pr-6">
+            Tidak perlu sama sekali. Seluruh sistem BioWeb dirancang khusus dengan antarmuka sentuh Android dan iPhone. Anda bisa menambah produk, mengganti harga, dan mengubah foto profil langsung dari browser ponsel Anda di mana saja.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="p-5 sm:p-6">
+          <button onclick="toggleFaq(2)" class="w-full flex items-center justify-between text-left font-bold text-base sm:text-lg">
+            <span>Bagaimana cara pelanggan memesan produk di website saya?</span>
+            <span id="faq-icon-2" class="font-mono text-lg font-bold text-vermilion ml-3">+</span>
+          </button>
+          <div id="faq-ans-2" class="hidden mt-3 text-xs sm:text-sm text-ink/75 leading-relaxed pr-6">
+            Setiap kali calon pelanggan mengklik tombol "Pesan", mereka akan otomatis dialihkan ke aplikasi WhatsApp Anda dengan pesan terformat rapi yang memuat nama produk yang ingin dibeli. Anda tinggal membalas total ongkir dan nomor rekening.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="p-5 sm:p-6">
+          <button onclick="toggleFaq(3)" class="w-full flex items-center justify-between text-left font-bold text-base sm:text-lg">
+            <span>Apakah ada potongan komisi dari setiap penjualan saya?</span>
+            <span id="faq-icon-3" class="font-mono text-lg font-bold text-vermilion ml-3">+</span>
+          </button>
+          <div id="faq-ans-3" class="hidden mt-3 text-xs sm:text-sm text-ink/75 leading-relaxed pr-6">
+            0% komisi. BioWeb bukan marketplace pihak ketiga. Semua pembayaran dari pembeli langsung 100% masuk ke rekening bank atau e-wallet pribadi/toko Anda tanpa potongan sepeser pun.
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="p-5 sm:p-6">
+          <button onclick="toggleFaq(4)" class="w-full flex items-center justify-between text-left font-bold text-base sm:text-lg">
+            <span>Bisa gunakan domain sendiri seperti namatoko.com?</span>
+            <span id="faq-icon-4" class="font-mono text-lg font-bold text-vermilion ml-3">+</span>
+          </button>
+          <div id="faq-ans-4" class="hidden mt-3 text-xs sm:text-sm text-ink/75 leading-relaxed pr-6">
+            Tentu saja! Pada paket Pro Merchant atau Jasa Setup, tim kami akan membantu menghubungkan custom domain pilihan Anda (.com, .id, .store, .co.id) ke katalog BioWeb Anda sehingga brand tampak jauh lebih terpercaya.
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="p-5 sm:p-6">
+          <button onclick="toggleFaq(5)" class="w-full flex items-center justify-between text-left font-bold text-base sm:text-lg">
+            <span>Bagaimana cara menaruh tautan website ke bio TikTok dan Instagram?</span>
+            <span id="faq-icon-5" class="font-mono text-lg font-bold text-vermilion ml-3">+</span>
+          </button>
+          <div id="faq-ans-5" class="hidden mt-3 text-xs sm:text-sm text-ink/75 leading-relaxed pr-6">
+            Sangat mudah. Anda hanya perlu membuka menu "Edit Profil" di akun Instagram atau TikTok Anda, lalu tempel tautan alamat BioWeb Anda pada kolom "Tautan / Website". Selesai!
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-ink text-paper py-12 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="w-7 h-7 bg-vermilion text-paper font-mono text-xs font-bold flex items-center justify-center">BW</span>
+          <span class="font-bold tracking-tight text-xl uppercase">BioWeb<span class="text-vermilion">.</span></span>
+        </div>
+        <p class="font-mono text-xs text-paper/60 mt-1.5 max-w-md">
+          Platform Pembuat Website Berbasis Sosial Media & Smartphone Android untuk UMKM Nusantara.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-6 font-mono text-xs">
+        <a href="#studio" class="hover:text-vermilion underline">Buka Studio</a>
+        <a href="#paket" class="hover:text-vermilion underline">Daftar Harga</a>
+        <a href="#faq" class="hover:text-vermilion underline">FAQ</a>
+        <button onclick="orderPackage('setup')" class="text-vermilion font-bold hover:underline">
+          Hubungi Admin WA: +62 877-8832-0784
+        </button>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto mt-8 pt-6 border-t border-paper/15 text-paper/40 font-mono text-[11px] flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>© 2026 BioWeb Engine Indonesia. Hak Cipta Dilindungi.</span>
+      <span>Ditenagai sistem katalog instan tanpa perantara.</span>
+    </div>
+  </footer>
+
+  <!-- FULLSCREEN PUBLISHED WEBSITE MODAL -->
+  <div id="fullPreviewModal" class="fixed inset-0 z-50 bg-ink/85 backdrop-blur-sm hidden items-center justify-center p-2 sm:p-6">
+    <div class="bg-paper border-2 hairline w-full max-w-2xl max-h-[94vh] flex flex-col shadow-2xl overflow-hidden">
+      
+      <!-- Browser Top Bar -->
+      <div class="bg-paperDark border-b hairline px-4 py-3 flex items-center justify-between gap-3 shrink-0">
+        <div class="flex items-center gap-2 overflow-hidden">
+          <span class="px-2 py-0.5 bg-forest text-paper font-mono text-[10px] font-bold">LIVE ONLINE</span>
+          <span id="modalUrlText" class="font-mono text-xs font-semibold truncate">https://bioweb.id/kalasenjaroastery</span>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <button onclick="copyShareUrl()" id="copyUrlBtn" class="bg-ink text-paper font-mono text-[11px] px-3 py-1.5 hover:bg-vermilion transition-colors">
+            Salin Link Bio
+          </button>
+          <button onclick="closeFullPreview()" class="border hairline bg-paper px-3 py-1.5 font-mono text-xs font-bold hover:bg-vermilion hover:text-paper transition-colors">
+            ✕ Tutup
+          </button>
+        </div>
+      </div>
+
+      <!-- Full Rendered Site Content -->
+      <div id="fullModalCanvas" class="overflow-y-auto flex-1"></div>
+
+      <!-- Modal Bottom Call-to-Action to Admin -->
+      <div class="p-3.5 bg-paperDark border-t hairline flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+        <p class="font-mono text-xs text-ink/80 text-center sm:text-left">
+          Ingin website ini aktif permanen dengan domain <span class="font-bold">.com / .id</span> Anda?
+        </p>
+        <button onclick="publishDraftViaWhatsApp()" class="btn-tactile bg-vermilion text-paper border hairline px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider shrink-0">
+          Kirim Draf ke Admin WA 🚀
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC ENGINE -->
+  <script>
+    const BIOWEB_ADMIN_WA = "6287788320784"; // Nomor WhatsApp Admin BioWeb
+    const LOCAL_STORAGE_KEY = "bioweb_user_draft_v2";
+
+    let currentTemplate = 'editorial';
+
+    let currentAvatar = "https://images.unsplash.com/photo-1509785307050-d4066910ec1e?w=150&auto=format&fit=crop&q=80";
+
+    let products = [
+      {
+        name: "House Blend Senja (200gr)",
+        desc: "Notes cokelat hitam, karamel, & gula aren pilihan",
+        price: "Rp 88.000",
+        image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=300&auto=format&fit=crop&q=80"
+      },
+      {
+        name: "Drip Bag Box (Isi 10 Sachet)",
+        desc: "Praktis seduh di mana saja tanpa peralatan manual brew",
+        price: "Rp 75.000",
+        image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=300&auto=format&fit=crop&q=80"
+      },
+      {
+        name: "Paket Kemitraan Kedai (1 Kg)",
+        desc: "Harga grosir, gratis konsultasi kalibrasi & resep menu",
+        price: "Rp 290.000",
+        image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=300&auto=format&fit=crop&q=80"
+      }
+    ];
+
+    const presets = {
+      roastery: {
+        template: 'editorial',
+        avatar: "https://images.unsplash.com/photo-1509785307050-d4066910ec1e?w=150&auto=format&fit=crop&q=80",
+        brand: "Kala Senja Roastery",
+        tagline: "Specialty Coffee & Manual Brew — Jakarta",
+        ig: "@kalasenja.roast",
+        tt: "@kalasenja.id",
+        wa: "6287788320784",
+        bio: "Biji kopi pilihan sangrai segar setiap pekan. Tersedia kemasan 200gr, drip bag, dan paket langganan kedai. Pemesanan langsung diproses via WhatsApp.",
+        items: [
+          {
+            name: "House Blend Senja (200gr)",
+            desc: "Notes cokelat hitam, karamel, & gula aren pilihan",
+            price: "Rp 88.000",
+            image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=300&auto=format&fit=crop&q=80"
+          },
+          {
+            name: "Drip Bag Box (Isi 10 Sachet)",
+            desc: "Praktis seduh di mana saja tanpa peralatan manual brew",
+            price: "Rp 75.000",
+            image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=300&auto=format&fit=crop&q=80"
+          },
+          {
+            name: "Paket Kemitraan Kedai (1 Kg)",
+            desc: "Harga grosir, gratis konsultasi kalibrasi & resep menu",
+            price: "Rp 290.000",
+            image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=300&auto=format&fit=crop&q=80"
+          }
+        ]
+      },
+      creator: {
+        template: 'swiss',
+        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+        brand: "Nadia Pratama Studio",
+        tagline: "Commercial Photographer & Content Creator",
+        ig: "@nadiapratama.vis",
+        tt: "@nadiashoots",
+        wa: "6287788320784",
+        bio: "Membantu brand lokal tampil menonjol lewat foto produk editorial dan video pendek vertikal untuk TikTok & Reels.",
+        items: [
+          {
+            name: "Paket Foto Katalog Produk (15 Foto)",
+            desc: "Termasuk konsep styling, properti, & retouching warna",
+            price: "Rp 650.000",
+            image: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=300&auto=format&fit=crop&q=80"
+          },
+          {
+            name: "Video Vertikal TikTok/Reels (3 Video)",
+            desc: "Script terarah, shooting resolusi 4K, & sound viral",
+            price: "Rp 900.000",
+            image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=300&auto=format&fit=crop&q=80"
+          },
+          {
+            name: "Preset Lightroom Editorial Pack",
+            desc: "12 preset warna siap pakai di HP untuk foto estetis",
+            price: "Rp 99.000",
+            image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&auto=format&fit=crop&q=80"
+          }
+        ]
+      },
+      apparel: {
+        template: 'forest',
+        avatar: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=150&auto=format&fit=crop&q=80",
+        brand: "Rimba Raya Goods",
+        tagline: "Outdoor Apparel & Everyday Carry — Bandung",
+        ig: "@rimbaraya.goods",
+        tt: "@rimbaraya_id",
+        wa: "6287788320784",
+        bio: "Perlengkapan harian dan pakaian lapangan berbahan kanvas tahan cuaca. Produksi terbatas setiap musimnya.",
+        items: [
+          {
+            name: "Jaket Lapangan Kanvas Seri 04",
+            desc: "Bahan water-repellent, 4 saku utilitas, kancing kuningan",
+            price: "Rp 345.000",
+            image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=300&auto=format&fit=crop&q=80"
+          },
+          {
+            name: "Tas Selempang Cordura 6L",
+            desc: "Ringan, tahan robek, kompartemen tablet & botol minum",
+            price: "Rp 185.000",
+            image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&auto=format&fit=crop&q=80"
+          }
+        ]
+      }
+    };
+
+    function loadPreset(key) {
+      const p = presets[key];
+      if (!p) return;
+      document.getElementById('inBrand').value = p.brand;
+      document.getElementById('inTagline').value = p.tagline;
+      document.getElementById('inIg').value = p.ig;
+      document.getElementById('inTt').value = p.tt;
+      document.getElementById('inWa').value = p.wa;
+      document.getElementById('inBio').value = p.bio;
+      document.getElementById('inAvatar').value = p.avatar;
+      currentAvatar = p.avatar;
+      document.getElementById('avatarPreviewImg').src = p.avatar;
+      products = JSON.parse(JSON.stringify(p.items));
+      setTemplate(p.template);
+      saveDraft();
+    }
+
+    function resetToDefaultDraft() {
+      if (confirm("Reset draf website kembali ke contoh Roastery?")) {
+        localStorage.removeItem(LOCAL_STORAGE_KEY);
+        loadPreset('roastery');
+      }
+    }
+
+    function setTemplate(tpl) {
+      currentTemplate = tpl;
+      ['editorial', 'forest', 'swiss'].forEach(id => {
+        const el = document.getElementById('tpl-' + id);
+        if (el) {
+          if (id === tpl) {
+            el.className = "text-left p-3.5 border hairline bg-ink text-paper transition-all";
+            el.querySelector('span:last-child').textContent = "AKTIF";
+          } else {
+            el.className = "text-left p-3.5 border hairline bg-paper text-ink hover:bg-paperDark transition-all";
+            el.querySelector('span:last-child').textContent = "PILIH";
+          }
+        }
+      });
+      syncStudio();
+    }
+
+    function handleAvatarUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const dataUrl = e.target.result;
+        currentAvatar = dataUrl;
+        document.getElementById('inAvatar').value = dataUrl;
+        document.getElementById('avatarPreviewImg').src = dataUrl;
+        syncStudio();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function handleProductImageUpload(index, event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        products[index].image = e.target.result;
+        syncStudio();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function addProduct() {
+      products.push({
+        name: "Item / Produk Baru",
+        desc: "Deskripsi singkat dan spesifikasi produk",
+        price: "Rp 95.000",
+        image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=300&auto=format&fit=crop&q=80"
+      });
+      syncStudio();
+    }
+
+    function removeProduct(index) {
+      if (products.length <= 1) {
+        alert("Minimal harus ada 1 item di dalam katalog.");
+        return;
+      }
+      products.splice(index, 1);
+      syncStudio();
+    }
+
+    function updateProductField(index, field, value) {
+      products[index][field] = value;
+      saveDraft();
+      renderGeneratedViews();
+    }
+
+    function renderProductEditor() {
+      const container = document.getElementById('productEditorContainer');
+      container.innerHTML = products.map((item, idx) => `
+        <div class="border hairline bg-paperDark/50 p-3 space-y-2.5">
+          <div class="flex items-start gap-3">
+            
+            <!-- Thumbnail Image & File Picker -->
+            <div class="relative group shrink-0">
+              <img src="${item.image || 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=300&auto=format&fit=crop&q=80'}" 
+                alt="${item.name}" class="w-14 h-14 object-cover border hairline bg-paper rounded" onerror="this.src='https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=300&auto=format&fit=crop&q=80'" />
+              <label class="absolute inset-0 bg-ink/75 text-paper text-[9px] font-mono flex items-center justify-center opacity-0 group-hover:opacity-100 cursor-pointer rounded transition-opacity">
+                <span>Ganti</span>
+                <input type="file" accept="image/*" class="hidden" onchange="handleProductImageUpload(${idx}, event)">
+              </label>
+            </div>
+
+            <!-- Inputs -->
+            <div class="flex-1 space-y-1.5 min-w-0">
+              <div class="flex items-center gap-2">
+                <span class="font-mono text-[10px] font-bold px-1.5 py-0.5 bg-ink text-paper shrink-0">0${idx + 1}</span>
+                <input type="text" value="${item.name}" oninput="updateProductField(${idx}, 'name', this.value)"
+                  class="flex-1 bg-paper border hairline px-2 py-1 text-xs font-bold focus:outline-none focus:bg-white truncate" placeholder="Nama Produk" />
+                <input type="text" value="${item.price}" oninput="updateProductField(${idx}, 'price', this.value)"
+                  class="w-24 bg-paper border hairline px-2 py-1 text-xs font-mono font-semibold focus:outline-none focus:bg-white text-right shrink-0" placeholder="Rp 0" />
+                <button type="button" onclick="removeProduct(${idx})" class="p-1 text-xs font-bold text-ink/50 hover:text-vermilion" title="Hapus Item">✕</button>
+              </div>
+
+              <input type="text" value="${item.desc}" oninput="updateProductField(${idx}, 'desc', this.value)"
+                class="w-full bg-paper border hairline-muted px-2 py-1 text-[11px] text-ink/80 focus:outline-none focus:bg-white" placeholder="Deskripsi singkat produk" />
+
+              <div class="flex items-center gap-2 text-[10px] font-mono text-ink/60">
+                <span>URL Foto:</span>
+                <input type="text" value="${item.image.startsWith('data:') ? '(Foto Diupload dari Perangkat)' : item.image}" 
+                  oninput="updateProductField(${idx}, 'image', this.value)"
+                  class="flex-1 bg-paper border hairline-muted px-1.5 py-0.5 text-[10px] focus:outline-none focus:bg-white truncate" placeholder="https://..." />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function sanitizeSocialHandle(handle) {
+      if (!handle) return "";
+      return handle.replace(/[^a-zA-Z0-9._]/g, "");
+    }
+
+    function buildSiteHTML(isModal = false) {
+      const brand = document.getElementById('inBrand').value || "Nama Brand";
+      const tagline = document.getElementById('inTagline').value || "Kategori Bisnis";
+      const rawIg = document.getElementById('inIg').value || "@instagram";
+      const rawTt = document.getElementById('inTt').value || "@tiktok";
+      const cleanIg = sanitizeSocialHandle(rawIg);
+      const cleanTt = sanitizeSocialHandle(rawTt);
+      const wa = document.getElementById('inWa').value.replace(/[^0-9]/g, "") || "6287788320784";
+      const bio = document.getElementById('inBio').value || "";
+      const avatar = document.getElementById('inAvatar').value || currentAvatar;
+
+      // Theme tokens per template
+      let wrapperClass = "bg-[#F4F1EA] text-[#141514]";
+      let headerBorder = "border-b border-[#141514]";
+      let badgeClass = "bg-[#141514] text-[#F4F1EA]";
+      let cardClass = "border border-[#141514] bg-[#EFECE3]";
+      let ctaClass = "bg-[#E04F33] text-[#F4F1EA] border border-[#141514]";
+      let priceClass = "text-[#E04F33]";
+      let mutedText = "text-[#141514]/75";
+      let btnWaItem = "bg-[#141514] text-[#F4F1EA]";
+
+      if (currentTemplate === 'forest') {
+        wrapperClass = "bg-[#162B20] text-[#F2EFE9]";
+        headerBorder = "border-b border-[#F2EFE9]/20";
+        badgeClass = "bg-[#D4A359] text-[#162B20]";
+        cardClass = "border border-[#F2EFE9]/20 bg-[#1E382A]";
+        ctaClass = "bg-[#D4A359] text-[#162B20] font-bold";
+        priceClass = "text-[#D4A359]";
+        mutedText = "text-[#F2EFE9]/75";
+        btnWaItem = "bg-[#D4A359] text-[#162B20]";
+      } else if (currentTemplate === 'swiss') {
+        wrapperClass = "bg-[#FFFFFF] text-[#111111]";
+        headerBorder = "border-b-2 border-[#111111]";
+        badgeClass = "bg-[#E04F33] text-white";
+        cardClass = "border-2 border-[#111111] bg-[#F8F8F8]";
+        ctaClass = "bg-[#111111] text-white";
+        priceClass = "text-[#E04F33]";
+        mutedText = "text-[#111111]/70";
+        btnWaItem = "bg-[#111111] text-white";
+      }
+
+      const paddingClass = isModal ? "p-6 sm:p-10" : "p-4 sm:p-5";
+      const titleSize = isModal ? "text-3xl sm:text-4xl" : "text-2xl sm:text-3xl";
+
+      const itemsMarkup = products.map((item, i) => `
+        <div class="${cardClass} p-3 sm:p-3.5 flex items-center gap-3">
+          <img src="${item.image || 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=300&auto=format&fit=crop&q=80'}" 
+            alt="${item.name}" class="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded border hairline shrink-0 bg-paperDark" onerror="this.src='https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=300&auto=format&fit=crop&q=80'" />
+          
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-1.5">
+              <span class="font-mono text-[9px] opacity-60">0${i + 1}</span>
+              <h4 class="font-bold text-xs sm:text-sm leading-tight truncate">${item.name}</h4>
+            </div>
+            <p class="text-[11px] ${mutedText} mt-0.5 line-clamp-2">${item.desc}</p>
+            <div class="mt-2 flex items-center justify-between">
+              <span class="font-mono text-xs sm:text-sm font-bold ${priceClass}">${item.price}</span>
+              <a href="https://wa.me/${wa}?text=${encodeURIComponent('Halo ' + brand + ', saya ingin memesan ' + item.name + ' (' + item.price + '). Apakah masih tersedia?')}" 
+                target="_blank" class="${btnWaItem} px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-wider rounded-sm hover:opacity-90 transition-opacity">
+                Pesan →
+              </a>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      return `
+        <div class="${wrapperClass} ${paddingClass} min-h-full">
+          <!-- Top Mini Bar -->
+          <div class="flex items-center justify-between pb-3 ${headerBorder}">
+            <span class="font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 ${badgeClass} font-bold">VERIFIED SITE</span>
+            <div class="flex items-center gap-3 font-mono text-[11px]">
+              <a href="https://instagram.com/${cleanIg}" target="_blank" class="hover:underline flex items-center gap-1">
+                <span>IG:</span><span>${rawIg}</span>
+              </a>
+              <span>•</span>
+              <a href="https://tiktok.com/@${cleanTt}" target="_blank" class="hover:underline flex items-center gap-1">
+                <span>TT:</span><span>${rawTt}</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Brand Profile Section -->
+          <div class="py-5 ${headerBorder}">
+            <div class="flex items-center gap-3.5 mb-3">
+              <img src="${avatar}" alt="${brand}" 
+                class="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 hairline bg-paper shrink-0 shadow-sm" onerror="this.src='https://images.unsplash.com/photo-1509785307050-d4066910ec1e?w=150&auto=format&fit=crop&q=80'" />
+              <div>
+                <p class="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider ${mutedText}">${tagline}</p>
+                <h1 class="font-serif ${titleSize} leading-tight font-bold">${brand}</h1>
+              </div>
+            </div>
+
+            <p class="text-xs sm:text-sm ${mutedText} leading-relaxed">${bio}</p>
+
+            <div class="mt-4 flex flex-wrap gap-2">
+              <a href="https://wa.me/${wa}?text=${encodeURIComponent('Halo ' + brand + ', saya melihat katalog website Anda dan ingin bertanya.')}" target="_blank"
+                class="flex-1 text-center ${ctaClass} py-2.5 px-4 text-xs font-bold uppercase tracking-wider transition-opacity hover:opacity-90">
+                💬 Hubungi Penjual via WhatsApp
+              </a>
+            </div>
+          </div>
+
+          <!-- Catalog Section -->
+          <div class="pt-4">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-[11px] font-bold uppercase tracking-wider">Katalog Produk (${products.length})</span>
+              <span class="font-mono text-[10px] ${mutedText}">Langsung ke WhatsApp</span>
+            </div>
+            <div class="space-y-2.5">
+              ${itemsMarkup}
+            </div>
+          </div>
+
+          <!-- Footer Credit -->
+          <div class="mt-8 pt-4 border-t border-current/15 flex items-center justify-between font-mono text-[10px] ${mutedText}">
+            <span>© 2026 ${brand}</span>
+            <span class="opacity-80">Dibangun dengan BioWeb</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderGeneratedViews() {
+      const brand = document.getElementById('inBrand').value || "brand";
+      const slug = brand.toLowerCase().replace(/[^a-z0-9]/g, "") || "brand";
+
+      document.getElementById('editorUrlPreview').textContent = "bioweb.id/" + slug;
+      document.getElementById('mobileBarUrl').textContent = "bioweb.id/" + slug;
+      document.getElementById('modalUrlText').textContent = "https://bioweb.id/" + slug;
+
+      document.getElementById('liveCanvas').innerHTML = buildSiteHTML(false);
+      document.getElementById('fullModalCanvas').innerHTML = buildSiteHTML(true);
+    }
+
+    function saveDraft() {
+      const draft = {
+        template: currentTemplate,
+        avatar: document.getElementById('inAvatar').value || currentAvatar,
+        brand: document.getElementById('inBrand').value,
+        tagline: document.getElementById('inTagline').value,
+        ig: document.getElementById('inIg').value,
+        tt: document.getElementById('inTt').value,
+        wa: document.getElementById('inWa').value,
+        bio: document.getElementById('inBio').value,
+        items: products
+      };
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(draft));
+        const ind = document.getElementById('saveIndicator');
+        ind.textContent = "● Draf Tersimpan di Browser";
+        ind.className = "font-mono text-[11px] text-forest font-semibold";
+      } catch (e) {
+        console.warn("Storage quota exceeded or private mode", e);
+      }
+    }
+
+    function loadDraftFromStorage() {
+      try {
+        const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (saved) {
+          const d = JSON.parse(saved);
+          if (d.brand) document.getElementById('inBrand').value = d.brand;
+          if (d.tagline) document.getElementById('inTagline').value = d.tagline;
+          if (d.ig) document.getElementById('inIg').value = d.ig;
+          if (d.tt) document.getElementById('inTt').value = d.tt;
+          if (d.wa) document.getElementById('inWa').value = d.wa;
+          if (d.bio) document.getElementById('inBio').value = d.bio;
+          if (d.avatar) {
+            document.getElementById('inAvatar').value = d.avatar;
+            currentAvatar = d.avatar;
+            document.getElementById('avatarPreviewImg').src = d.avatar;
+          }
+          if (d.items && d.items.length) products = d.items;
+          if (d.template) setTemplate(d.template);
+          return true;
+        }
+      } catch (e) {
+        console.warn("Could not load draft", e);
+      }
+      return false;
+    }
+
+    function syncStudio() {
+      const avInput = document.getElementById('inAvatar').value;
+      if (avInput) {
+        currentAvatar = avInput;
+        document.getElementById('avatarPreviewImg').src = avInput;
+      }
+      renderProductEditor();
+      renderGeneratedViews();
+      saveDraft();
+    }
+
+    function openFullPreview() {
+      renderGeneratedViews();
+      const modal = document.getElementById('fullPreviewModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeFullPreview() {
+      const modal = document.getElementById('fullPreviewModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function copyShareUrl() {
+      const url = document.getElementById('modalUrlText').textContent;
+      navigator.clipboard?.writeText(url);
+      const btn = document.getElementById('copyUrlBtn');
+      btn.textContent = "Tersalin ✓";
+      setTimeout(() => btn.textContent = "Salin Link Bio", 2000);
+    }
+
+    // Direct Lead WhatsApp functions
+    function orderPackage(tier) {
+      const brand = document.getElementById('inBrand').value || "Brand Saya";
+      let text = "";
+      if (tier === 'pro') {
+        text = `Halo tim BioWeb, saya tertarik mengaktifkan Paket PRO MERCHANT (Rp 39rb/bulan) untuk brand saya "${brand}". Mohon info cara menghubungkan domain dan pembayarannya.`;
+      } else if (tier === 'setup') {
+        text = `Halo tim BioWeb, saya ingin memesan JASA SETUP TERIMA BERES (Rp 149rb) untuk brand "${brand}". Mohon panduan langkah selanjutnya.`;
+      } else {
+        text = `Halo tim BioWeb, saya ingin bertanya tentang pembuatan website komersial BioWeb untuk usaha saya.`;
+      }
+      window.open(`https://wa.me/${BIOWEB_ADMIN_WA}?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    function publishDraftViaWhatsApp() {
+      const brand = document.getElementById('inBrand').value || "Brand Saya";
+      const tagline = document.getElementById('inTagline').value || "";
+      const ig = document.getElementById('inIg').value || "";
+      const itemCount = products.length;
+      const text = `Halo tim BioWeb, saya sudah menyusun draf website di BioWeb Live Studio:
+• Brand: ${brand}
+• Kategori: ${tagline}
+• Akun IG: ${ig}
+• Jumlah Katalog: ${itemCount} produk
+• Desain Pilihan: Style ${currentTemplate.toUpperCase()}
+
+Saya ingin menerbitkan website ini agar aktif online di link bio saya. Bagaimana cara aktivasinya? Terima kasih!`;
+
+      window.open(`https://wa.me/${BIOWEB_ADMIN_WA}?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    // FAQ Accordion Toggle
+    function toggleFaq(id) {
+      const ans = document.getElementById(`faq-ans-${id}`);
+      const icon = document.getElementById(`faq-icon-${id}`);
+      if (ans.classList.contains('hidden')) {
+        ans.classList.remove('hidden');
+        icon.textContent = "−";
+      } else {
+        ans.classList.add('hidden');
+        icon.textContent = "+";
+      }
+    }
+
+    // Mobile Navbar Toggle
+    function toggleMobileNav() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+    }
+
+    // Live Clock for Phone
+    function updateClock() {
+      const now = new Date();
+      const hrs = String(now.getHours()).padStart(2, '0');
+      const mins = String(now.getMinutes()).padStart(2, '0');
+      const clockEl = document.getElementById('phoneClock');
+      if (clockEl) clockEl.textContent = `${hrs}:${mins}`;
+    }
+    setInterval(updateClock, 30000);
+    updateClock();
+
+    // Initial Boot
+    if (!loadDraftFromStorage()) {
+      syncStudio();
+    } else {
+      renderProductEditor();
+      renderGeneratedViews();
+    }
+  </script>
+</body>
+</html>
